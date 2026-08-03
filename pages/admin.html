@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KMTC ICT Support | Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div id="loginSection" class="login-screen">
+    <div class="login-box">
+      <img src="../images/kmtc-logo.png" alt="KMTC Logo" class="login-logo">
+      <form id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required>
+
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required>
+
+        <button type="submit" id="loginBtn">Log In</button>
+        <p id="loginMessage" class="form-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="dashboardSection" style="display:none;">
+
+    <header class="top-header">
+      <div class="top-header-left">
+        <img src="../images/kmtc-logo.png" alt="KMTC Logo" class="top-logo">
+        <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span class="top-title">KENYA MEDICAL TRAINING COLLEGE</span>
+      </div>
+
+      <div class="top-header-right">
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span id="notifBadge" class="notif-badge" style="display:none;">0</span>
+        </div>
+
+        <div class="user-menu">
+          <button class="user-menu-trigger" id="userMenuTrigger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
+            </svg>
+            <span class="topbar-greeting" id="topbarGreeting">Hi there</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="user-menu-dropdown" id="userMenuDropdown" style="display:none;">
+            <button id="profileMenuBtn">Profile</button>
+            <button id="logoutBtn">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-section="dashboardView">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="8" height="8" rx="1"/>
+              <rect x="13" y="3" width="8" height="5" rx="1"/>
+              <rect x="13" y="10" width="8" height="11" rx="1"/>
+              <rect x="3" y="13" width="8" height="8" rx="1"/>
+            </svg>
+            Dashboard
+          </button>
+          <button class="nav-item" data-section="ticketsView">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8z"/>
+            </svg>
+            All Tickets
+          </button>
+          <button class="nav-item" data-section="faqView">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 1.7-2 3.5"/>
+              <line x1="12" y1="17" x2="12" y2="17"/>
+            </svg>
+            FAQs
+          </button>
+          <button class="nav-item" data-section="assistantView">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 13a8 8 0 0 1 16 0"/>
+              <rect x="2" y="13" width="4" height="6" rx="1"/>
+              <rect x="18" y="13" width="4" height="6" rx="1"/>
+            </svg>
+            Virtual Assistant
+          </button>
+          <button class="nav-item" data-section="settingsView">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+            </svg>
+            Settings
+          </button>
+        </nav>
+
+        <p class="sidebar-credit">©2026 KMTC ICT — Developed by MelTech</p>
+      </aside>
+
+      <main class="main-content">
+
+        <section id="dashboardView" class="content-view">
+          <h1 class="view-title">Dashboard</h1>
+          <p class="view-subtitle">Overview of all support tickets</p>
+          <p class="dashboard-welcome">Welcome back, Melvin</p>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <p class="stat-number" id="statTotal">0</p>
+              <p class="stat-label">Total Tickets</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-number" id="statOpen">0</p>
+              <p class="stat-label">Open</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-number" id="statResolved">0</p>
+              <p class="stat-label">Resolved</p>
+            </div>
+            <div class="stat-card stat-card-overdue">
+              <p class="stat-number" id="statOverdue">0</p>
+              <p class="stat-label">Overdue</p>
+            </div>
+          </div>
+
+          <h2 class="section-heading">Recent Tickets</h2>
+          <div id="recentTicketsContainer">
+            <p>Loading...</p>
+          </div>
+        </section>
+
+        <section id="ticketsView" class="content-view" style="display:none;">
+          <h1 class="view-title">All Tickets</h1>
+          <p class="view-subtitle">Manage and update every submitted ticket</p>
+
+          <div class="controls-panel">
+            <div class="control-group">
+              <label for="viewSelect" class="sort-label">View</label>
+              <select id="viewSelect">
+                <option value="all">All Tickets</option>
+                <option value="mine">Assigned to Me</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="campusSelect" class="sort-label">Office</label>
+              <select id="campusSelect">
+                <option value="all">All Offices</option>
+                <option value="ICT Headquarters Office">HQ Office</option>
+                <option value="ICT Nairobi Campus Admin Block 2">Nairobi Campus</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="sortSelect" class="sort-label">Sort by</label>
+              <select id="sortSelect">
+                <option value="newest">Newest First</option>
+                <option value="urgency">Urgency (High First)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="ticketsContainer">
+            <p>Loading tickets...</p>
+          </div>
+        </section>
+
+        <section id="faqView" class="content-view" style="display:none;">
+          <h1 class="view-title">FAQs</h1>
+          <p class="view-subtitle">Common issues and quick fixes before escalating a ticket</p>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <p class="faq-q">Printer not working?</p>
+              <p class="faq-a">Check it's powered on, connected to the network, and has paper/toner. Restart the printer if it's still unresponsive.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-q">Can't log into the student/staff portal?</p>
+              <p class="faq-a">Confirm you're using the correct student/staff number, and try resetting your password via the portal's "Forgot Password" link.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-q">No internet connection?</p>
+              <p class="faq-a">Restart your device, reconnect to Wi-Fi, and check if others in the same room are also affected (may be a wider network issue).</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-q">ABN Unisol (ERP) not loading?</p>
+              <p class="faq-a">Clear your browser cache, try a different browser, and confirm you're using the correct login URL.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-q">How long does a ticket take to resolve?</p>
+              <p class="faq-a">High urgency tickets are prioritized within 24 hours, medium within 3 days, and low within 7 days.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="assistantView" class="content-view" style="display:none;">
+          <h1 class="view-title">Virtual Assistant</h1>
+          <p class="view-subtitle">AI-powered support assistant</p>
+
+          <div class="coming-soon-card">
+            <h3>Coming Soon</h3>
+            <p>The Virtual Assistant will help answer common IT questions instantly and pre-fill ticket details for you, using AI. This feature is planned for a future update.</p>
+          </div>
+        </section>
+
+        <section id="settingsView" class="content-view" style="display:none;">
+          <h1 class="view-title">Settings</h1>
+          <p class="view-subtitle">ICT officers with access to this dashboard</p>
+
+          <button id="showAddOfficerBtn" class="add-officer-btn">+ Add Officer</button>
+
+          <div id="addOfficerForm" class="add-officer-form" style="display:none;">
+            <label for="newOfficerName">Full Name</label>
+            <input type="text" id="newOfficerName" placeholder="e.g. John Kamau">
+
+            <label for="newOfficerEmail">Email (must match their Firebase login)</label>
+            <input type="email" id="newOfficerEmail" placeholder="e.g. john.kamau@gmail.com">
+
+            <div class="form-actions">
+              <button id="saveOfficerBtn">Save Officer</button>
+              <button id="cancelOfficerBtn" class="cancel-btn">Cancel</button>
+            </div>
+            <p id="officerFormMessage" class="form-message"></p>
+          </div>
+
+          <div id="officersList" class="officers-list"></div>
+
+          <div class="settings-note">
+            <p>Adding an officer here only adds them to this list. You must still create their actual login separately in Firebase Console → Authentication → Add User, using the same email.</p>
+          </div>
+        </section>
+
+        <section id="profileView" class="content-view" style="display:none;">
+          <h1 class="view-title">Profile Settings</h1>
+
+          <div class="profile-card">
+            <div class="profile-left">
+              <div class="profile-avatar-large" id="profileAvatarLarge">MM</div>
+              <p class="profile-name" id="profileNameDisplay">Melvin</p>
+            </div>
+
+            <div class="profile-right">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword">
+
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword">
+
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword">
+
+              <button id="submitPasswordBtn" class="submit-password-btn">Submit</button>
+              <p id="passwordChangeMessage" class="form-message"></p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="../js/firebase-config.js"></script>
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

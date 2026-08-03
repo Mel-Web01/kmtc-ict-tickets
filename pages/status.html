@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KMTC ICT Support | Check Ticket Status</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="logo-row">
+      <img src="../images/kmtc-logo.png" alt="KMTC Logo">
+      <h1>KMTC ICT Support</h1>
+    </div>
+    <p>Check the status of your ticket</p>
+    <nav>
+      <a href="../index.html">Submit Ticket</a>
+      <a href="status.html" class="active">Check Status</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="statusForm" class="ticket-form">
+      <label for="referenceNumber">Reference Number</label>
+      <input type="text" id="referenceNumber" name="referenceNumber" required placeholder="e.g. TCK-3716">
+
+      <button type="submit" id="checkBtn">Check Status</button>
+
+      <p id="statusMessage" class="form-message"></p>
+    </form>
+
+    <div id="ticketDetails" class="ticket-details" style="display:none;">
+      <h2>Ticket Details</h2>
+      <p><strong>Reference:</strong> <span id="detailRef"></span></p>
+      <p><strong>Status:</strong> <span id="detailStatus"></span></p>
+      <p><strong>Issue Type:</strong> <span id="detailIssueType"></span></p>
+      <p><strong>Urgency:</strong> <span id="detailUrgency"></span></p>
+      <p><strong>Description:</strong> <span id="detailDescription"></span></p>
+      <p><strong>Submitted:</strong> <span id="detailDate"></span></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>KMTC ICT Department &mdash; Internal Support System</p>
+  </footer>
+
+  <script type="module" src="../js/firebase-config.js"></script>
+  <script type="module" src="../js/check-status.js"></script>
+</body>
+</html>
