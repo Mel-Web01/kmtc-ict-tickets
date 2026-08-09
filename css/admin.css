@@ -732,3 +732,18 @@ table.tickets-table select {
 .submit-password-btn:hover {
   background-color: #5e1620;
 }
+
+.delete-ticket-btn {
+  padding: 6px 12px;
+  background-color: #fdecea;
+  color: #b3261e;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.delete-ticket-btn:hover {
+  background-color: #f9d4d0;
+}
