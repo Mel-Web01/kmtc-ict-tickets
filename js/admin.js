@@ -63,7 +63,6 @@ let currentOfficerName = null;
 
 const OVERDUE_THRESHOLDS_HOURS = { high: 24, medium: 72, low: 168 };
 
-// ===== USER DROPDOWN =====
 userMenuTrigger.addEventListener("click", (event) => {
   event.stopPropagation();
   userMenuDropdown.style.display = userMenuDropdown.style.display === "none" ? "flex" : "none";
@@ -73,7 +72,6 @@ document.addEventListener("click", () => {
   userMenuDropdown.style.display = "none";
 });
 
-// ===== NAVIGATION (sidebar items + profile from dropdown) =====
 const navItems = document.querySelectorAll(".nav-item");
 const contentViews = document.querySelectorAll(".content-view");
 
@@ -98,7 +96,6 @@ profileMenuBtn.addEventListener("click", () => {
   userMenuDropdown.style.display = "none";
 });
 
-// ===== LOGIN =====
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const email = document.getElementById("loginEmail").value;
@@ -141,7 +138,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// ===== PROFILE: CHANGE PASSWORD =====
 submitPasswordBtn.addEventListener("click", async () => {
   const currentPassword = document.getElementById("currentPassword").value;
   const newPassword = document.getElementById("newPassword").value;
@@ -169,7 +165,6 @@ submitPasswordBtn.addEventListener("click", async () => {
 
   try {
     const user = auth.currentUser;
-    // Firebase requires re-confirming identity before changing a password
     const credential = EmailAuthProvider.credential(user.email, currentPassword);
     await reauthenticateWithCredential(user, credential);
     await updatePassword(user, newPassword);
@@ -190,7 +185,6 @@ submitPasswordBtn.addEventListener("click", async () => {
   }
 });
 
-// ===== OFFICERS =====
 async function loadOfficers() {
   try {
     const officersRef = collection(db, "officers");
@@ -277,7 +271,6 @@ saveOfficerBtn.addEventListener("click", async () => {
   }
 });
 
-// ===== TICKETS =====
 async function loadTickets() {
   ticketsContainer.innerHTML = "<p style='padding:16px;'>Loading tickets...</p>";
 
@@ -378,7 +371,7 @@ function renderTickets(ticketsArray) {
       <thead>
         <tr>
           <th>Reference</th><th>Name</th><th>Location</th><th>Office</th>
-          <th>Issue</th><th>Urgency</th><th>Description</th><th>Assigned To</th><th>Status</th>
+          <th>Issue</th><th>Urgency</th><th>Description</th><th>Assigned To</th><th>Status</th><th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -409,6 +402,9 @@ function renderTickets(ticketsArray) {
             <option value="In Progress" ${ticket.status === "In Progress" ? "selected" : ""}>In Progress</option>
             <option value="Resolved" ${ticket.status === "Resolved" ? "selected" : ""}>Resolved</option>
           </select>
+        </td>
+        <td>
+          <button class="delete-ticket-btn" data-id="${ticket.id}">Delete</button>
         </td>
       </tr>
     `;
@@ -445,6 +441,24 @@ function renderTickets(ticketsArray) {
       } catch (error) {
         alert("Failed to update assignment. Please try again.");
         console.error("Assign error:", error);
+      }
+    });
+  });
+
+  document.querySelectorAll(".delete-ticket-btn").forEach((btnEl) => {
+    btnEl.addEventListener("click", async (event) => {
+      const ticketId = event.target.getAttribute("data-id");
+      if (confirm("Permanently delete this ticket? This cannot be undone.")) {
+        try {
+          await deleteDoc(doc(db, "tickets", ticketId));
+          allTickets = allTickets.filter(t => t.id !== ticketId);
+          updateStats();
+          applyFiltersAndRender();
+          renderRecentTickets();
+        } catch (error) {
+          alert("Failed to delete ticket. Please try again.");
+          console.error("Delete error:", error);
+        }
       }
     });
   });

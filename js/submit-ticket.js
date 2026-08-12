@@ -3,13 +3,19 @@ import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/fir
 
 const ticketForm = document.getElementById("ticketForm");
 const formMessage = document.getElementById("formMessage");
+const descriptionField = document.getElementById("description");
+const charCount = document.getElementById("charCount");
+
+descriptionField.addEventListener("input", () => {
+  charCount.textContent = descriptionField.value.length;
+});
 
 ticketForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const submitBtn = document.getElementById("submitBtn");
   submitBtn.disabled = true;
-  submitBtn.textContent = "Submitting...";
+  submitBtn.textContent = "⏳ Submitting your ticket... Please wait...";
 
   try {
     const referenceNumber = "TCK-" + Math.floor(1000 + Math.random() * 9000);
@@ -34,6 +40,7 @@ ticketForm.addEventListener("submit", async (event) => {
     formMessage.style.color = "green";
 
     ticketForm.reset();
+    charCount.textContent = "0";
 
   } catch (error) {
     formMessage.textContent = "Something went wrong. Please try again.";

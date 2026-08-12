@@ -67,13 +67,14 @@
       <label for="urgency">Urgency</label>
       <select id="urgency" name="urgency" required>
         <option value="">-- Select urgency --</option>
-        <option value="low">Low-can wait a few days</option>
-        <option value="medium">Medium-affecting my work</option>
-        <option value="high">High-completely blocked</option>
+        <option value="low">Low — can wait a few days</option>
+        <option value="medium">Medium — affecting my work</option>
+        <option value="high">High — completely blocked</option>
       </select>
 
       <label for="description">Describe the issue</label>
-      <textarea id="description" name="description" rows="5" required placeholder="What's happening? What have you already tried?"></textarea>
+      <textarea id="description" name="description" rows="5" required maxlength="600" placeholder="What's happening? What have you already tried?"></textarea>
+      <p class="char-counter"><span id="charCount">0</span>/600 characters</p>
 
       <button type="submit" id="submitBtn">Submit Ticket</button>
 
@@ -82,7 +83,8 @@
   </main>
 
   <footer>
-    <p>KMTC ICT Department &mdash; Internal Support System</p>
+    <p>&copy; 2026 KMTC ICT Department | All Rights Reserved</p>
+    <p class="footer-links"><a href="pages/privacy.html">Privacy Policy</a> | <a href="pages/terms.html">Terms of Service</a></p>
   </footer>
 
   <script type="module" src="js/firebase-config.js"></script>

@@ -747,3 +747,17 @@ table.tickets-table select {
 .delete-ticket-btn:hover {
   background-color: #f9d4d0;
 }
+.delete-ticket-btn {
+  padding: 6px 12px;
+  background-color: #fdecea;
+  color: #b3261e;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.delete-ticket-btn:hover {
+  background-color: #f9d4d0;
+}
