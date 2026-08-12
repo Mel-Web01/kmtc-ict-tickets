@@ -484,3 +484,44 @@ function applyFiltersAndRender() {
 sortSelect.addEventListener("change", applyFiltersAndRender);
 viewSelect.addEventListener("change", applyFiltersAndRender);
 campusSelect.addEventListener("change", applyFiltersAndRender);
+// ===== CSV EXPORT =====
+function exportTicketsToCSV() {
+  if (allTickets.length === 0) {
+    alert("No tickets to export.");
+    return;
+  }
+
+  const headers = ["Reference", "Name", "Email", "Phone", "Location", "Office", "Issue Type", "Urgency", "Description", "Assigned To", "Status"];
+  let csvContent = headers.join(",") + "\n";
+
+  allTickets.forEach(ticket => {
+    const row = [
+      ticket.referenceNumber,
+      `"${ticket.name}"`,
+      ticket.email,
+      ticket.phone,
+      `"${ticket.location}"`,
+      `"${ticket.campus || ''}"`,
+      ticket.issueType,
+      ticket.urgency,
+      `"${(ticket.description || '').replace(/"/g, '""')}"`,
+      `"${ticket.assignedTo || 'Unassigned'}"`,
+      ticket.status
+    ];
+    csvContent += row.join(",") + "\n";
+  });
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", `kmtc-tickets-${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+const exportCsvBtn = document.getElementById("exportCsvBtn");
+if (exportCsvBtn) {
+  exportCsvBtn.addEventListener("click", exportTicketsToCSV);
+}
