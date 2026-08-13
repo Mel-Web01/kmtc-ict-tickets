@@ -320,6 +320,61 @@ function updateStats() {
   } else {
     notifBadge.style.display = "none";
   }
+
+  renderCharts();
+}
+
+let statusChartInstance = null;
+let urgencyChartInstance = null;
+
+function renderCharts() {
+  const statusCanvas = document.getElementById("statusChart");
+  const urgencyCanvas = document.getElementById("urgencyChart");
+  if (!statusCanvas || !urgencyCanvas || typeof Chart === "undefined") return;
+
+  const submittedCount = allTickets.filter(t => t.status === "Submitted").length;
+  const inProgressCount = allTickets.filter(t => t.status === "In Progress").length;
+  const resolvedCount = allTickets.filter(t => t.status === "Resolved").length;
+
+  const highCount = allTickets.filter(t => t.urgency === "high").length;
+  const mediumCount = allTickets.filter(t => t.urgency === "medium").length;
+  const lowCount = allTickets.filter(t => t.urgency === "low").length;
+
+  // Destroy old chart instances before redrawing, to avoid duplicates stacking
+  if (statusChartInstance) statusChartInstance.destroy();
+  if (urgencyChartInstance) urgencyChartInstance.destroy();
+
+  statusChartInstance = new Chart(statusCanvas, {
+    type: "doughnut",
+    data: {
+      labels: ["Submitted", "In Progress", "Resolved"],
+      datasets: [{
+        data: [submittedCount, inProgressCount, resolvedCount],
+        backgroundColor: ["#b3261e", "#b06000", "#1a7d3a"]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: "bottom", labels: { font: { size: 11 } } } }
+    }
+  });
+
+  urgencyChartInstance = new Chart(urgencyCanvas, {
+    type: "bar",
+    data: {
+      labels: ["High", "Medium", "Low"],
+      datasets: [{
+        label: "Tickets",
+        data: [highCount, mediumCount, lowCount],
+        backgroundColor: ["#b3261e", "#b06000", "#1a7d3a"]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+    }
+  });
 }
 
 function buildOfficerOptions(selectedName) {
