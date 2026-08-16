@@ -1,4 +1,4 @@
-import { db, storage } from "./firebase-config.js";
+import { db } from "./firebase-config.js";
 
 import { 
   getAuth, 
@@ -444,7 +444,7 @@ function renderTickets(ticketsArray) {
           ${ticket.urgency}
           ${overdue ? '<br><span class="overdue-badge">⚠ Overdue</span>' : ''}
         </td>
-        <td>${ticket.description}${ticket.attachmentUrl ? `<br><a href="${ticket.attachmentUrl}" target="_blank" class="attachment-link">📎 View Attachment</a>` : ''}</td>
+        <td>${ticket.description}</td>
         <td>
           <select class="assignedSelect" data-id="${ticket.id}">
             ${buildOfficerOptions(ticket.assignedTo)}
