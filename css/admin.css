@@ -790,3 +790,15 @@ table.tickets-table select {
     grid-template-columns: 1fr;
   }
 }
+.attachment-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #7a1f2b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.attachment-link:hover {
+  text-decoration: underline;
+}

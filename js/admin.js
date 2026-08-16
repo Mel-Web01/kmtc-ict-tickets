@@ -1,4 +1,4 @@
-import { db } from "./firebase-config.js";
+import { db, storage } from "./firebase-config.js";
 
 import { 
   getAuth, 
@@ -340,7 +340,6 @@ function renderCharts() {
   const mediumCount = allTickets.filter(t => t.urgency === "medium").length;
   const lowCount = allTickets.filter(t => t.urgency === "low").length;
 
-  // Destroy old chart instances before redrawing, to avoid duplicates stacking
   if (statusChartInstance) statusChartInstance.destroy();
   if (urgencyChartInstance) urgencyChartInstance.destroy();
 
@@ -445,7 +444,7 @@ function renderTickets(ticketsArray) {
           ${ticket.urgency}
           ${overdue ? '<br><span class="overdue-badge">⚠ Overdue</span>' : ''}
         </td>
-        <td>${ticket.description}</td>
+        <td>${ticket.description}${ticket.attachmentUrl ? `<br><a href="${ticket.attachmentUrl}" target="_blank" class="attachment-link">📎 View Attachment</a>` : ''}</td>
         <td>
           <select class="assignedSelect" data-id="${ticket.id}">
             ${buildOfficerOptions(ticket.assignedTo)}
@@ -539,7 +538,7 @@ function applyFiltersAndRender() {
 sortSelect.addEventListener("change", applyFiltersAndRender);
 viewSelect.addEventListener("change", applyFiltersAndRender);
 campusSelect.addEventListener("change", applyFiltersAndRender);
-// ===== CSV EXPORT =====
+
 function exportTicketsToCSV() {
   if (allTickets.length === 0) {
     alert("No tickets to export.");

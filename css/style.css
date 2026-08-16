@@ -196,3 +196,17 @@ footer {
   text-align: right;
   margin-top: -4px;
 }
+.file-hint {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+input[type="file"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  background-color: #fafafa;
+}
